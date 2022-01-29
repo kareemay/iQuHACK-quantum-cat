@@ -11,7 +11,7 @@ pygame.init()
 screen = pygame.display.set_mode((800,800))
 
 #Title and Icon (work on later, have to download a pic first)
-#pygame.display.set_caption("Pygame practice")
+pygame.display.set_caption("Quantum Cat")
 #icon = pygame.image.load('python')
 #pygame.display.set_icon(icon)
 
