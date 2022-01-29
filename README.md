@@ -15,6 +15,11 @@ pygame.display.set_caption("Quantum Cat")
 #icon = pygame.image.load('python')
 #pygame.display.set_icon(icon)
 
+#Cats
+catImg = pygame.image.load('placeholder.png')
+catX = 370
+catY = 480 
+
 
 #Game loop for quitting screen
 running = True
