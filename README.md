@@ -1,4 +1,4 @@
-# iQuHACK-quantum-cat
+# QATS-quantum cats (QUQATS team)
 #iQuHACK quantum computing video game
 
     Skill level: Beginner 
