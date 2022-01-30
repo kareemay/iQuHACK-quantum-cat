@@ -1,0 +1,93 @@
+# iQuHACK-quantum-cat
+#iQuHACK quantum computing video game
+
+
+from numpy import tile
+import pygame
+from sympy import false
+
+#initialize pygame
+pygame.init()
+
+#setting up screen dimensions
+screen = pygame.display.set_mode((1220,800))
+
+# background image
+bg = pygame.image.load('start.png')
+bg  = pygame.transform.scale(bg, (1220, 800))
+
+#Title and Icon (work on later, have to download a pic first)
+pygame.display.set_caption("Pygame practice")
+#icon = pygame.image.load('python')
+#pygame.display.set_icon(icon)
+
+# making a tile surface to put the p gates on, black and white for now to see tiles
+tilesize = 120
+
+def create_board_surf():
+    board_surf = pygame.Surface((tilesize*5, tilesize*5))
+    dark = False
+    for y in range(5):
+        for x in range(5):
+            rect = pygame.Rect(x*tilesize, y*tilesize, tilesize, tilesize)
+            pygame.draw.rect(board_surf, pygame.Color('black'), rect)
+    return board_surf
+
+def create_board():
+    board = []
+    for y in range (5):
+        board.append([])
+        for x in range (5):
+            board[y].append(None)
+    return board
+
+# draws a red rectangle on selected square
+boardPosition = (320, 140)
+def get_square_under_mouse(board):
+    mouse_pos = pygame.Vector2(pygame.mouse.get_pos()) - boardPosition
+    x, y = [int(v // tilesize) for v in mouse_pos]
+    try: 
+        if x >= 0 and y >= 0: return (board[y][x], x, y)
+    except IndexError: pass
+    return None, None, None
+
+
+# loading and resizing the p gates/pi blocks
+
+pi = pygame.image.load('pi.png')
+pi_2 = pygame.image.load('pi_2.png')
+pi_4 = pygame.image.load('pi_4.png')
+pi_8 = pygame.image.load('pi_8.png')
+pi_16 = pygame.image.load('pi_16.png') 
+
+pi = pygame.transform.scale(pi, (115, 100))
+pi_2 = pygame.transform.scale(pi_2, (115, 100))
+pi_4 = pygame.transform.scale(pi_4, (115, 100))
+pi_8 = pygame.transform.scale(pi_8, (115, 100))
+pi_16 = pygame.transform.scale(pi_16, (115, 100))
+
+
+#Game loop for quitting screen
+board = create_board()
+board_surf = create_board_surf()
+clock = pygame.time.Clock()
+running = True
+while running:
+
+    screen.fill(pygame.Color('grey'))
+
+    for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+    piece, x, y = get_square_under_mouse(board)
+
+    screen.blit(board_surf, (320, 140))
+    screen.blit(bg, (0, 0))
+    screen.blit(pi, (10, 10))
+    if x != None:
+        rect = (boardPosition[0] + x * tilesize, boardPosition[1] + y * tilesize, tilesize, tilesize)
+        pygame.draw.rect(screen, (255, 0, 0, 50), rect, 2)
+
+    pygame.display.update()
+    clock.tick(60)
